@@ -192,7 +192,7 @@
                 <!-- 天气情况图片示例-->
             <ImageView
                 android:id="@+id/weather_img"
-                android:layout_marginRight="20dip"
+                android:layout_marginRight="30dip"
                 android:src="@drawable/biz_plugin_weather_qing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -202,6 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
+
                     android:layout_marginLeft="5dip"
                     android:layout_toRightOf="@id/weather_img"
                     android:singleLine="true"
@@ -219,7 +220,7 @@
                     android:singleLine="true"
                     android:text="-2℃~7℃"
                     android:textColor="@android:color/white"
-                    android:textSize="30.0sp"
+                    android:textSize="25.0sp"
                     />
                 <TextView
                     android:id="@+id/climate"
