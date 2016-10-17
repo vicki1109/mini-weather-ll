@@ -275,96 +275,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
         return todayWeather;
     }
-//    private void parseXML(String xmldata)
-//    {
-//        int fengxiangCount = 0;
-//        int fengliCount = 0;
-//        int dateCount = 0;
-//        int highCount = 0;
-//        int lowCount = 0;
-//        int typeCount = 0;
-//        try{
-//            //构造工厂实例
-//            XmlPullParserFactory fac = XmlPullParserFactory.newInstance();
-//            //创建解析器
-//            XmlPullParser xmlPullParser = fac.newPullParser();
-//            //将xml文件以流的形式加入
-//            xmlPullParser.setInput(new StringReader(xmldata));
-//            int eventType = xmlPullParser.getEventType();
-//            Log.d("myWeather","parseXML");
-//            while(eventType!=xmlPullParser.END_DOCUMENT)
-//            {
-//                switch(eventType) {
-//                    //判断是否为文档开始事件
-//                    case XmlPullParser.START_DOCUMENT:
-//                        break;
-//                    //判断是否为标签元素开始事件
-//                    case XmlPullParser.START_TAG:
-//                        if (xmlPullParser.getName().equals("city")) {
-//                            Log.d("myWeather","parseXML2");
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "city:     " + xmlPullParser.getText());
-//                        } else if (xmlPullParser.getName().equals("updatetime")) {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "updatetime:     " + xmlPullParser.getText());
-//                        } else if (xmlPullParser.getName().equals("shidu")) {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "shidu:      " + xmlPullParser.getText());
-//                        } else if (xmlPullParser.getName().equals("wendu")) {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "wendu:      " + xmlPullParser.getText());
-//                        } else if (xmlPullParser.getName().equals("pm25")) {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "pm25:       " + xmlPullParser.getText());
-//                        } else if (xmlPullParser.getName().equals("quality")) {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "quality:      " + xmlPullParser.getText());
-//                        } else if (xmlPullParser.getName().equals("fengxiang") && fengxiangCount == 0) {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather", "fengxiang:      " + xmlPullParser.getText());
-//                            fengxiangCount++;
-//                        } else if (xmlPullParser.getName().equals("fengli") && fengliCount == 0)
-//                        {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather","fengli:      "+xmlPullParser.getText());
-//                            fengliCount++;
-//                        }
-//                        else if(xmlPullParser.getName().equals("data")&&dateCount==0)
-//                        {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather","date:      "+xmlPullParser.getText());
-//                            dateCount++;
-//                        }
-//                        else if(xmlPullParser.getName().equals("high")&&highCount==0)
-//                        {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather","high:      "+xmlPullParser.getText());
-//                            highCount++;
-//                        }
-//                        else if(xmlPullParser.getName().equals("low")&&lowCount==0)
-//                        {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather","low:     "+xmlPullParser.getText());
-//                            lowCount++;
-//                        }
-//                        else if(xmlPullParser.getName().equals("type")&&typeCount==0)
-//                        {
-//                            eventType = xmlPullParser.next();
-//                            Log.d("myWeather","type:      "+xmlPullParser.getText());
-//                            typeCount++;
-//                        }
-//                        break;
-//                    //判断当前事件是否为标签元素结束事件
-//                    case XmlPullParser.END_TAG:
-//                        break;
-//                }
-//                //进入下一个元素并触发相应事件
-//                eventType = xmlPullParser.next();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     void updateTodayWeather(TodayWeather todayWeather)
     {
@@ -378,6 +288,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         weekTv.setText(todayWeather.getDate());
         temperature_range_Tv.setText(todayWeather.getHigh().substring(todayWeather.getHigh().lastIndexOf(' '))+"~"+todayWeather.getLow().substring(todayWeather.getHigh().lastIndexOf(' ')));
         climateTv.setText(todayWeather.getType());
+        weatherImg.setImageResource(R.drawable.biz_plugin_weather_qing);
+        pmImg.setImageResource(R.drawable.biz_plugin_weather_51_100);
         windTv.setText("风力："+todayWeather.getFengli());
         Toast.makeText(MainActivity.this,"更新成功！",Toast.LENGTH_SHORT).show();
     }
