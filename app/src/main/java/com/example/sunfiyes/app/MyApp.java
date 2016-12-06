@@ -58,6 +58,11 @@ public class MyApp extends Application{
         return true;
     }
 
+    public List<City> getCityList()
+    {
+        return mCityList;
+    }
+
     public static MyApp getInstance()
     {
         return mApp;

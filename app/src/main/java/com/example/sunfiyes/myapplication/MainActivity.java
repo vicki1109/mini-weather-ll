@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sunfiyes.app.MyApp;
+import com.example.sunfiyes.bean.City;
 import com.example.sunfiyes.bean.TodayWeather;
 import com.example.sunfiyes.util.NetUtil;
 
@@ -25,6 +27,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by sunfiyes on 2016/9/27 0027.
@@ -36,8 +39,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView cityTv, timeTv, humidityTv, weekTv, pmDataTv, pmQualityTv, temperatureTv, temperature_range_Tv, climateTv, windTv, city_name_Tv;
     private ImageView weatherImg, pmImg;
 
+
     //通过消息机制，将解析的天气对象，通过消息发送给主线程，主线程接收到消息数据后，调用函数更新UI界面上的数据。
     private static final int UPDATE_TODAY_WEATHER = 1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.weather_info);
+
+        mUpdateaBtn = (ImageView) findViewById(R.id.title_update_btn);
+        mUpdateaBtn.setOnClickListener(this);
+
+        if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
+            Log.d("myWeather", "网络OK");
+            Toast.makeText(MainActivity.this, "网络OK！", Toast.LENGTH_LONG).show();
+        } else {
+            Log.d("myWeather", "网络挂了");
+            Toast.makeText(MainActivity.this, "网络挂了", Toast.LENGTH_LONG).show();
+        }
+
+        mCitySelect = (ImageView) findViewById(R.id.title_city_manager);
+        mCitySelect.setOnClickListener(this);
+        initView();
+
+
+
+    }
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -79,26 +107,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         windTv.setText("N/A");
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.weather_info);
-
-        mUpdateaBtn = (ImageView) findViewById(R.id.title_update_btn);
-        mUpdateaBtn.setOnClickListener(this);
-
-        if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
-            Log.d("myWeather", "网络OK");
-            Toast.makeText(MainActivity.this, "网络OK！", Toast.LENGTH_LONG).show();
-        } else {
-            Log.d("myWeather", "网络挂了");
-            Toast.makeText(MainActivity.this, "网络挂了", Toast.LENGTH_LONG).show();
-        }
-
-        mCitySelect = (ImageView) findViewById(R.id.title_city_manager);
-        mCitySelect.setOnClickListener(this);
-        initView();
-    }
 
     public void onClick(View view) {
         if (view.getId() == R.id.title_update_btn) {
@@ -362,4 +370,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         windTv.setText("风力：" + todayWeather.getFengli());
         Toast.makeText(MainActivity.this, "更新成功！", Toast.LENGTH_SHORT).show();
     }
+
+
 }
