@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +19,11 @@ import android.widget.Toast;
 import com.example.sunfiyes.app.MyApp;
 import com.example.sunfiyes.bean.City;
 import com.example.sunfiyes.bean.TodayWeather;
+import com.example.sunfiyes.bean.WeatherInfo;
+import com.example.sunfiyes.fragment.FirstWeatherFragment;
+import com.example.sunfiyes.fragment.SecondWeatherFragment;
 import com.example.sunfiyes.util.NetUtil;
+
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -27,17 +35,24 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by sunfiyes on 2016/9/27 0027.
  */
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
     private ImageView mUpdateaBtn;//图标控件
     private ImageView mCitySelect;
 
     private TextView cityTv, timeTv, humidityTv, weekTv, pmDataTv, pmQualityTv, temperatureTv, temperature_range_Tv, climateTv, windTv, city_name_Tv;
     private ImageView weatherImg, pmImg;
+
+    private WeatherInfo mWeatherinfo;
+    private WeatherPagerAdapter mWeatherPagerAdapter;
+    private ViewPager mViewPager;
+    private List<Fragment> fragments;
 
 
     //通过消息机制，将解析的天气对象，通过消息发送给主线程，主线程接收到消息数据后，调用函数更新UI界面上的数据。
@@ -45,6 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_info);
 
@@ -63,6 +79,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mCitySelect.setOnClickListener(this);
         initView();
 
+        fragments = new ArrayList<Fragment>();
+        fragments.add(new FirstWeatherFragment());
+        fragments.add(new SecondWeatherFragment());
+        mViewPager = (ViewPager) this.findViewById(R.id.viewpager);
+        mWeatherPagerAdapter = new WeatherPagerAdapter(
+                getSupportFragmentManager(), fragments);
+        mViewPager.setAdapter(mWeatherPagerAdapter);
 
 
     }
@@ -105,6 +128,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         temperature_range_Tv.setText("N/A");
         climateTv.setText("N/A");
         windTv.setText("N/A");
+        pmImg.setImageResource(R.drawable.biz_plugin_weather_0_50);
     }
 
 
@@ -129,7 +153,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (view.getId() == R.id.title_city_manager) {
 
             Intent i = new Intent(this, SelectCity.class);
-            startActivityForResult(i,1);
+            startActivityForResult(i, 1);
         }
 
     }
@@ -391,6 +415,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Toast.makeText(MainActivity.this, "更新成功！", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 }

@@ -256,6 +256,23 @@
                     android:textSize="20.0sp"/>
             </RelativeLayout>
         </RelativeLayout>
+
+        <RelativeLayout android:id="@+id/r_viewpager"
+            android:layout_below="@id/weather_today"
+            android:layout_width="fill_parent"
+            android:layout_height="180.0dip"
+            >
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="fill_parent"
+                android:layout_height="180.0dip"
+                android:layout_marginTop="5dip"
+                android:overScrollMode="never"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
     </LinearLayout>
+
 </RelativeLayout>
 

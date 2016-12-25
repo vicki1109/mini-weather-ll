@@ -2,6 +2,7 @@ package com.example.sunfiyes.myapplication;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,12 +15,12 @@ import java.util.List;
  */
 public class ViewPagerAdapter extends PagerAdapter {
     private List<View> views;
-    private Activity activity;
+    private Context context;
 
-    public ViewPagerAdapter(List<View> views,Activity activity)
+    public ViewPagerAdapter(List<View> views,Context context)
     {
         this.views = views;
-        this.activity=activity;
+        this.context = context;
     }
 
     public int getCount()
@@ -37,8 +38,9 @@ public class ViewPagerAdapter extends PagerAdapter {
     {
         return (view==o);
     }
-    public void destroyItem(View arg0, int arg1, Object arg2) {
-        ((ViewPager) arg0).removeView(views.get(arg1));
+    public void destroyItem(ViewGroup container,int position,Object object)
+    {
+        container.removeView(views.get(position));
     }
 
 }
