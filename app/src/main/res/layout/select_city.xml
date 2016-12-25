@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:id = "@+id/title_name"
             android:gravity="center"
-            android:text = "当前城市：北京"
+            android:text = "当前城市："
             android:textColor="#ffffffff"
             android:textSize="20.0dip"/>
         <ImageView
@@ -49,7 +49,9 @@
         android:background="@drawable/contact_search_box_edittext_keyword_background"
         android:textColor="#ff000000"
         android:textColorHint="#ffcccccc"
-        android:textSize="15.0sp"/>
+        android:textSize="15.0sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
     <ListView
         android:id = "@+id/list_view"
         android:layout_width = "match_parent"

@@ -66,6 +66,7 @@ public class SelectCity extends Activity implements View.OnClickListener{
                 getCityNum = data.get(i).getNumber();
                 Toast.makeText(SelectCity.this, "你选择了：" + data.get(i).getCity(), Toast.LENGTH_SHORT).show();
                 mTitleName.setText("当前城市：" + data.get(i).getCity());
+
             }
         });
 
@@ -76,9 +77,10 @@ public class SelectCity extends Activity implements View.OnClickListener{
         switch(v.getId())
         {
             case R.id.title_back:
-                Intent i = new Intent();
-                i.putExtra("cityCode", getCityNum);
-                setResult(RESULT_OK, i);
+                Intent intent = new Intent();
+                intent.putExtra("cityCode", getCityNum);
+                setResult(RESULT_OK, intent);
+
                 finish();
                 break;
             default:
@@ -90,6 +92,8 @@ public class SelectCity extends Activity implements View.OnClickListener{
     {
 
         mEditText = (EditText) findViewById(R.id.search_edit);
+        mEditText.clearFocus();//失去焦点
+        mEditText.requestFocus();//获取焦点
         mEditText.addTextChangedListener(new TextWatcher() {
             private CharSequence temp;
             private int editStart,editEnd;
@@ -122,6 +126,13 @@ public class SelectCity extends Activity implements View.OnClickListener{
                         getCityNum = newCityList.get(i).getNumber();
                         Toast.makeText(SelectCity.this, "你选择了：" + newCityList.get(i).getCity(), Toast.LENGTH_SHORT).show();
                         mTitleName.setText("当前城市：" + newCityList.get(i).getCity());
+
+                        Intent intent = new Intent(SelectCity.this,
+                                MainActivity.class);
+                        intent.putExtra("cityCode", getCityNum);
+                        setResult(RESULT_OK, intent);
+                        SelectCity.this.finish();
+
                     }
                 });
             }
