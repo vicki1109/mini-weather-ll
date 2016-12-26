@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.sunfiyes.app.MyApp;
 import com.example.sunfiyes.bean.City;
 import com.example.sunfiyes.bean.TodayWeather;
-import com.example.sunfiyes.bean.WeatherInfo;
 import com.example.sunfiyes.fragment.FirstWeatherFragment;
 import com.example.sunfiyes.fragment.SecondWeatherFragment;
 import com.example.sunfiyes.util.NetUtil;
@@ -38,7 +37,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.BDNotifyListener;//假如用到位置提醒功能，需要import该类
+import com.baidu.location.Poi;
 /**
  * Created by sunfiyes on 2016/9/27 0027.
  */
@@ -49,11 +53,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView cityTv, timeTv, humidityTv, weekTv, pmDataTv, pmQualityTv, temperatureTv, temperature_range_Tv, climateTv, windTv, city_name_Tv;
     private ImageView weatherImg, pmImg;
 
-    private WeatherInfo mWeatherinfo;
     private WeatherPagerAdapter mWeatherPagerAdapter;
     private ViewPager mViewPager;
     private List<Fragment> fragments;
-
+    public LocationClient mLocationClient = null;
 
     //通过消息机制，将解析的天气对象，通过消息发送给主线程，主线程接收到消息数据后，调用函数更新UI界面上的数据。
     private static final int UPDATE_TODAY_WEATHER = 1;
@@ -87,6 +90,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mWeatherPagerAdapter);
 
+        mLocationClient = new LocationClient(this); // 声明LocationClient类
+        // 注册监听函数
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
+        option.setOpenGps(true);
+        option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
+        option.setScanSpan(500000);// 设置发起定位请求的间隔时间为5000ms
+        option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
+        mLocationClient.setLocOption(option);
+        //未完待续。。。
 
     }
 

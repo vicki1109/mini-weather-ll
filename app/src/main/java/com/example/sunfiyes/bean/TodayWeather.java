@@ -7,6 +7,9 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sunfiyes on 2016/10/11 0011.
@@ -24,6 +27,8 @@ public class TodayWeather {
     private String high;
     private String low;
     private String type;
+
+
 
     public String getCity() {
         return city;

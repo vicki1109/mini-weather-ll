@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sunfiyes.bean.TodayWeather;
-import com.example.sunfiyes.bean.WeatherInfo;
 import com.example.sunfiyes.myapplication.R;
 /**
  * Created by sunfiyes on 2016/12/26 0026.
@@ -50,9 +49,9 @@ public class FirstWeatherFragment extends Fragment {
         windTv2 = (TextView) view2.findViewById(R.id.wind);
         windTv3 = (TextView) view3.findViewById(R.id.wind);
 
-        weekTv1.setText("星期五");
-        weekTv2.setText("星期六");
-        weekTv3.setText("星期日");
+        weekTv1.setText("星期一");
+        weekTv2.setText("星期二");
+        weekTv3.setText("星期三");
         climateTv1.setText("N/A");
         climateTv2.setText("N/A");
         climateTv3.setText("N/A");
@@ -67,25 +66,21 @@ public class FirstWeatherFragment extends Fragment {
         return view;
     }
 
-    public void updateWeather(WeatherInfo weatherinfo) {
+    public void updateWeather(TodayWeather weatherinfo) {
         if (weatherinfo != null) {
-            //此处需要根据天气数据更新相应的组件中的内容
-            climateTv1.setText(weatherinfo.getWSE());
-            climateTv2.setText(weatherinfo.getWSE());
-            climateTv3.setText(weatherinfo.getWSE());
+            climateTv1.setText(weatherinfo.getQuality());
+            climateTv2.setText(weatherinfo.getQuality());
+            climateTv3.setText(weatherinfo.getQuality());
 
-            temperatureTv1.setText(weatherinfo.getTemp());
-            temperatureTv2.setText(weatherinfo.getTemp());
-            temperatureTv3.setText(weatherinfo.getTemp());
+            temperatureTv1.setText(weatherinfo.getWendu());
+            temperatureTv2.setText(weatherinfo.getWendu());
+            temperatureTv3.setText(weatherinfo.getWendu());
 
-            windTv1.setText(weatherinfo.getWD());
-            windTv2.setText(weatherinfo.getWD());
-            windTv3.setText(weatherinfo.getWD());
+            windTv1.setText(weatherinfo.getFengli());
+            windTv2.setText(weatherinfo.getFengli());
+            windTv3.setText(weatherinfo.getFengli());
 
         } else {
-            //此处需要设置图片资源
-
-
             climateTv1.setText("N/A");
             climateTv2.setText("N/A");
             climateTv3.setText("N/A");
