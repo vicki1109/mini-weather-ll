@@ -100,7 +100,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
         option.setOpenGps(true);
         option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-        option.setScanSpan(1000);// 设置发起定位请求的间隔时间为5000ms
+        option.setScanSpan(50000);// 设置发起定位请求的间隔时间为5000ms
         option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
         option.setAddrType("all");
         mLocationClient.setLocOption(option);
@@ -123,16 +123,44 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                  sb.append(location.getRadius());
                  sb.append("\ncity : ");
                  sb.append(location.getCity());
-                 sb.append("\nAdress : ");
-                 sb.append(location.getAddress().address);
-                 if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                 sb.append("\ncitycode : ");
+                 sb.append(location.getCityCode());
+                 sb.append("\ndistrict : ");
+                 sb.append(location.getDistrict());
+                 if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
                      sb.append("\nspeed : ");
-                     sb.append(location.getSpeed());
+                     sb.append(location.getSpeed());// 单位：公里每小时
                      sb.append("\nsatellite : ");
                      sb.append(location.getSatelliteNumber());
-                 } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                     sb.append("\nheight : ");
+                     sb.append(location.getAltitude());// 单位：米
+                     sb.append("\ndirection : ");
+                     sb.append(location.getDirection());// 单位度
                      sb.append("\naddr : ");
                      sb.append(location.getAddrStr());
+                     sb.append("\ndescribe : ");
+                     sb.append("gps定位成功");
+
+                 } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
+                     sb.append("\naddr : ");
+                     sb.append(location.getAddrStr());
+                     //运营商信息
+                     sb.append("\noperationers : ");
+                     sb.append(location.getOperators());
+                     sb.append("\ndescribe : ");
+                     sb.append("网络定位成功");
+                 } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                     sb.append("\ndescribe : ");
+                     sb.append("离线定位成功，离线定位结果也是有效的");
+                 } else if (location.getLocType() == BDLocation.TypeServerError) {
+                     sb.append("\ndescribe : ");
+                     sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+                 } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                     sb.append("\ndescribe : ");
+                     sb.append("网络不同导致定位失败，请检查网络是否通畅");
+                 } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                     sb.append("\ndescribe : ");
+                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
                  }
                  Log.i("myWeather", sb.toString());
              }
